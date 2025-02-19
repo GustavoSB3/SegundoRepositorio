@@ -10,7 +10,7 @@ body {
     }
 
     .form-container {
-        background-color: #0000008a;
+        background-color: rgba(136, 199, 201, 0.651);
         padding: 32px;
         border-radius: 10px;
         box-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
