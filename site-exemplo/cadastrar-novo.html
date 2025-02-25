@@ -55,7 +55,58 @@
 
         .input-group{
             flex-direction: column;
+            display: flex;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-size: 20px;
+            
         }
+
+        .form-container {
+        background-color: #FFFFFF;
+        padding: 32px;
+        border-radius: 10px;
+        box-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400PX;      
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    
+       }
+
+        .form-container input {
+        border: 2px solid #B0BEC5; 
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+       .form-container label {
+       color: #333333; 
+       font-weight: bold;
+    }
+
+    button {
+    background-color: #42A5F5; /* Azul vibrante */
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 25%;
+    position: absolute;
+    top: 94%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 2px;
+
+}
+
+button:hover {
+    background-color: #1E88E5; /* Azul mais escuro no hover */
+}
     </style>
 </body>
 </html>
