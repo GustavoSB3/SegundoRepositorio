@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="form-container">
+        <form id="MeuFormulario">
+            <div class="input-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" placeholder="Digite seu nome" required>
+            </div>
+            <div class="input-group">
+                <label for="Sobrenome">Sobrenome:</label>
+                <input type="text" id="nome" name="Sobrenome" placeholder="Digite seu sobrenome" required>
+            </div>
+            <div class="input-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="Digite seu endereço de e-mail" required>
+            </div>
+            <div class="input-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+            
+            </div>
+            <div class="input-group">
+                <label for="senha">Digite novamente sua senha:</label>
+                <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+            
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+        <div id="mensagem"></div>
+
+    </div>
+
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;
+            position: relative;
+            top: -200px;
+            font-family: 'Poppins', sans-serif;
+            
+            
+        }
+
+        .input-group{
+            flex-direction: column;
+            display: flex;
+            margin-bottom: 30px;
+            font-weight: bold;
+            font-size: 20px;
+            
+        }
+
+        .form-container {
+        background-color: #FFFFFF;
+        padding: 32px;
+        border-radius: 10px;
+        box-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 400PX;      
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    
+       }
+
+        .form-container input {
+        border: 2px solid #B0BEC5; 
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+       .form-container label {
+       color: #333333; 
+       font-weight: bold;
+    }
+
+    button {
+    background-color: #42A5F5; /* Azul vibrante */
+    color: #ffffff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 25%;
+    position: absolute;
+    top: 94%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 2px;
+
+}
+
+button:hover {
+    background-color: #1E88E5; /* Azul mais escuro no hover */
+}
+    </style>
+</body>
+</html>
