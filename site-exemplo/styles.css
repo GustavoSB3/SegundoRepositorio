@@ -1,3 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+:root {
+    
+    --cor0: rgb(237, 237, 237);
+    --CorDoForm: #FFFFFF;
+    --CorDoTexto: #333;
+    --CorDoButton: #42A5F5;
+    --CorDoHover: #1E88E5;
+
+    --Fonte-padrao: 'Poppins', sans-serif;
+}
+
 body {
     font-family: Arial, sans-serif;
     padding: 0;
@@ -6,7 +19,7 @@ body {
     justify-content: center;
     height: 100vh;
     align-items: center;
-    background-color: rgb(237, 237, 237);
+    background-color: var(--cor0)
     }
 
     .input-group{
@@ -19,8 +32,8 @@ body {
     }
 
     .form-container {
-    background-color: #FFFFFF;
-    padding: 32px;
+    background-color: var(--CorDoForm);
+    padding: 2rem;
     border-radius: 10px;
     box-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
@@ -29,13 +42,15 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 30vh
+    height: 40vh;
+
+    
 
    }
     
    h1 {
         text-align:center;
-        color:  #333;
+        color:  var(--CorDoTexto)
     }
 
     .form-container input {
@@ -50,24 +65,22 @@ body {
     }
 
     button {
-        background-color: #42A5F5; /* Azul vibrante */
-        color: #ffffff;
+        background-color: var(--CorDoButton); /* Azul vibrante */
+        color: var(--CorDoForm);
         padding: 10px 15px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
-        width: 25%;
-        position: absolute;
-        top: 77%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 2px;
+        width: 100%;
+        margin: 20px auto 0;
+        display: block;
+        max-width: 200px;
     
     }
     
     button:hover {
-        background-color: #1E88E5; /* Azul mais escuro no hover */
+        background-color: var(--CorDoHover); /* Azul mais escuro no hover */
     }
 
     nav {
@@ -122,6 +135,6 @@ body {
     }
 
     a:hover {
-        text-decoration: underline; /* Sublinhado só no hover */
-        color: #42A5F5; /* Muda a cor ao passar o mouse */
-    }
+        text-decoration: underline; 
+        color: #42A5F5; 
+        }
