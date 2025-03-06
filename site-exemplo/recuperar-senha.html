@@ -8,23 +8,40 @@
 </head>
 
 <body>
+    
+    
     <div class="container">
+        <form id="FormularioRecuperarSenha">
+
         <h2>Recuperar senha</h2>
         <p>Digite seu e-mail para receber um link de redefinição de senha.</p>
 
-        <form id="FormularioRecuperarSenha">
-            <div class="input-email">
+        
+            <div class="input-group">
                 <label for="Email">Email:</label>
-                <input type="email" id="Email" name="Email" placeholder="Digite seu e-mail:" required>
+                <input type="email" id="Email" name="Email" placeholder="Digite seu e-mail" required>
             </div>
         </form>
 
        <button type="submit">Enviar</button>
 
-        <a href="index.html">Voltar ao Login</a>
+        <a class="voltar" href="index.html">Voltar ao Login</a>
     </div>
 
     <style>
+         :root {
+    
+    --cor0: rgb(237, 237, 237);
+    --CorDoForm: #FFFFFF;
+    --CorDoTexto: #333;
+    --CorDoButton: #42A5F5;
+    --CorDoHover: #1E88E5;
+    --CorDaBorda: #B0BEC5;
+
+    --Fonte-padrao: 'Poppins', sans-serif;
+}
+
+
         body {
             font-family: Arial, sans-serif;
             padding: 0;
@@ -53,16 +70,33 @@
         transform: translate(-50%, -50%);
     
        }
-
-       .input-email {
-        flex-direction: column;
-            display: flex;
-            margin-bottom: 30px;
-            font-weight: bold;
-            font-size: 20px;
-            width: 80%;
-            max-width: 500%;
+       
+       .container input {
+    border: 2px solid var(--CorDaBorda); 
+    padding: 10px;
+    border-radius: 5px;
+    width: 80%;
        }
+       
+       
+       ::placeholder {
+        font-size: 16px;
+       }
+
+       button {
+        margin-top: 30px;
+       }
+
+       .a voltar {
+        position: relative;
+       }
+      
+
+      
+    
+      
+
+       
 
     </style>
 </body>
