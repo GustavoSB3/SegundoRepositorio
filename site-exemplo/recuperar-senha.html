@@ -24,8 +24,10 @@
         </form>
 
        <button type="submit">Enviar</button>
-
-        <a class="voltar" href="index.html">Voltar ao Login</a>
+<div class="voltar">
+    <a class="voltar" href="index.html">Voltar ao Login</a>
+</div>
+        
     </div>
 
     <style>
@@ -84,13 +86,35 @@
        }
 
        button {
-        margin-top: 30px;
+        margin-top: 35px;
+        margin-bottom: 15px;
+        background-color: var(--CorDoButton); 
+        color: #ffffff;
+        padding: 7px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        width: 25%;
+        
        }
 
-       .a voltar {
-        position: relative;
+       .voltar {
+        
+        background-color: var(--CorDoButton);
+        color: white;
+        border: none;
+        padding: 7px;
+        font-size: 12px;
+        border-radius: 5px;
+        transition: background 0.3s;
+        text-decoration: none;
+        max-width: 104px;
        }
       
+       .voltar:hover {
+        background-color: var(--CorDoHover);
+       }
 
       
     
