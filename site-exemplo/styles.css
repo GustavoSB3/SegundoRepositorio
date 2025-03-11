@@ -8,8 +8,18 @@
     --CorDoButton: #42A5F5;
     --CorDoHover: #1E88E5;
 
-    --Fonte-padrao: 'Poppins', sans-serif;
+    --Fonte-padrao: 'Poppins', sans-serif;   
 }
+
+:root.dark-mode {
+
+    --cor0: rgb(0, 0, 0);
+    --CorDoForm: #292424;
+    --CorDoTexto: #333;
+    --CorDoButton: #42A5F5;
+    --CorDoHover: #1E88E5;
+
+   }
 
 body {
     font-family: Arial, sans-serif;
@@ -137,4 +147,20 @@ body {
     a:hover {
         text-decoration: underline; 
         color: #42A5F5; 
+        }
+
+        label[for="switch"] {
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Dá um espaço entre o checkbox e o texto */
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        #switch {
+            position: relative; /* Ou 'static' se não houver necessidade de posicionamento */
+            z-index: 10; /* Garante que ele fique acima de outros elementos */
+            width: 20px;
+            height: 20px;
+            accent-color: #4CAF50;
         }
