@@ -13,11 +13,13 @@
 
 :root.dark-mode {
 
-    --cor0: rgb(0, 0, 0);
-    --CorDoForm: #292424;
-    --CorDoTexto: #333;
-    --CorDoButton: #42A5F5;
-    --CorDoHover: #1E88E5;
+    --cor0: #121212;
+    --CorDoForm: #1E1E1E;
+    --CorDoTexto: #E0E0E0;
+    --CorDoButton: #58555c;
+    --CorDoHover: #A0A0A0;
+    --PlaceHolder: #A0A0A0;
+    --CorDoHoverDark: #dad5d5;
 
    }
 
@@ -70,7 +72,7 @@ body {
     }
 
        .form-container label {
-       color: #333333; 
+       color: var(--CorDoTexto); 
        font-weight: bold;
     }
 
@@ -132,7 +134,7 @@ body {
         position: absolute;
         top: 85%;
         left: 5%;
-        color: #333333;
+        color: var(--PlaceHolder);
         text-decoration: none;
     }
     
@@ -140,13 +142,13 @@ body {
         position: absolute;
         top: 90%;
         left: 5%;
-        color: #333333;
+        color: var(--PlaceHolder);
         text-decoration: none;
     }
 
     a:hover {
         text-decoration: underline; 
-        color: #42A5F5; 
+        color: var(--CorDoHoverDark) 
         }
 
         label[for="switch"] {
