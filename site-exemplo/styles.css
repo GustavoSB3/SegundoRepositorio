@@ -154,15 +154,14 @@ body {
         label[for="switch"] {
             display: flex;
             align-items: center;
-            gap: 8px; /* Dá um espaço entre o checkbox e o texto */
+            gap: 8px;
             cursor: pointer;
             font-weight: bold;
         }
         
         #switch {
-            position: relative; /* Ou 'static' se não houver necessidade de posicionamento */
-            z-index: 10; /* Garante que ele fique acima de outros elementos */
             width: 20px;
             height: 20px;
-            accent-color: #4CAF50;
+            accent-color: #4CAF50; /* Cor do checkbox */
+            position: static; /* Remove deslocamentos desnecessários */
         }
