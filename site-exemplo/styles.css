@@ -153,10 +153,14 @@ body {
 
         label[for="switch"] {
             display: flex;
-            align-items: center;
             gap: 8px;
             cursor: pointer;
             font-weight: bold;
+            position: absolute;
+            right: 200%;
+            top: -150px;
+            font-size: 15px;
+
         
         }
         
@@ -164,7 +168,8 @@ body {
             width: 20px;
             height: 20px;
             accent-color: #4CAF50; /* Cor do checkbox */
-            position: sta; /* Remove deslocamentos desnecessários */
+            position: static; /* Remove deslocamentos desnecessários */
+            
         
         }
 
