@@ -29,7 +29,7 @@ body {
     margin: 0;
     display: flex;
     justify-content: center;
-    height: 100vh;
+    height: 500vh;
     align-items: center;
     background-color: var(--cor0)
     }
@@ -37,7 +37,7 @@ body {
     .input-group{
         flex-direction: column;
         display: flex;
-        margin-bottom: 30px;
+        margin-bottom: 40px;
         font-weight: bold;
         font-size: 20px;
         
@@ -48,13 +48,13 @@ body {
     padding: 2rem;
     border-radius: 10px;
     box-shadow:  0 4px 8px rgba(0, 0, 0, 0.2);
-    width: 100%;
+    width: 50%;
     max-width: 500PX;      
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 40vh;
+    height: 32vh;
 
     
 
@@ -84,7 +84,7 @@ body {
         border-radius: 5px;
         cursor: pointer;
         font-weight: bold;
-        width: 28%;
+        width: 50%;
         margin: 20px auto 0;
         display: block;
         max-width: 200px;

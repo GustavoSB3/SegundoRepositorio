@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="./recuperar.js" defer></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
 </head>
 
@@ -11,7 +12,7 @@
     
     
     <div class="container">
-        <form id="FormularioRecuperarSenha">
+        <form id="recuperar">
 
         <h2>Recuperar senha</h2>
         <p>Digite seu e-mail para receber um link de redefinição de senha.</p>
@@ -19,11 +20,14 @@
         
             <div class="input-group">
                 <label for="Email">Email:</label>
-                <input type="email" id="Email" name="Email" placeholder="Digite seu e-mail" required>
+                <input type="email" id="email" name="Email" placeholder="Digite seu e-mail" required>
+                
             </div>
+
+            <button type="submit">Enviar</button>
         </form>
 
-       <button type="submit">Enviar</button>
+      
 <div class="voltar">
     <a class="voltar" href="index.html">Voltar ao Login</a>
 </div>
