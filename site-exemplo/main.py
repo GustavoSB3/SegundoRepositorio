@@ -3,7 +3,7 @@ import pyrebase
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)  # Habilita CORS
+CORS(app)  
 
 
 # Configuração do Firebase
@@ -21,7 +21,7 @@ firebaseConfig = {
 firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 
-# Rota de login
+
 @app.route('/login', methods=['POST'])
 def login():
     try:
@@ -51,7 +51,7 @@ def login():
             "detalhe": str(e)
         }), 401
 
-# Rota para criar novo usuário
+
 @app.route('/cadastrarnovo', methods=['POST'])
 def cadastrar_novo():
     try:
@@ -76,7 +76,7 @@ def cadastrar_novo():
     except Exception as e:
         return jsonify({"mensagem": "Não foi possível criar o usuário", "detalhe": str(e)}), 400
 
-# Rota de recuperação de senha
+
 @app.route('/recuperarsenha', methods=['POST'])
 def recuperar_senha():
     try:
@@ -96,6 +96,6 @@ def recuperar_senha():
             "detalhe": str(e)
         }), 400
 
-# Rodando o servidor
+
 if __name__ == '__main__':
     app.run(debug=True)
