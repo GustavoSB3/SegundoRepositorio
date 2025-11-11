@@ -1,25 +1,23 @@
 from flask import Flask, request, jsonify
-import pyrebase
 from flask_cors import CORS
+import mysql.connector
+import bcrypt
+import jwt
+import datetime
 
 app = Flask(__name__)
-CORS(app)  
+CORS(app)
 
+SECRET_KEY = "sua_chave_super_secreta"
 
-# Configuração do Firebase
-firebaseConfig = {
-    'apiKey': "AIzaSyDtskjYrVh9xAfs_bU1hJN-mesGARSDTDA",
-    'authDomain': "keep-8fc35.firebaseapp.com",
-    'databaseURL': "https://keep-8fc35-default-rtdb.firebaseio.com",
-    'projectId': "keep-8fc35",
-    'storageBucket': "keep-8fc35.firebasestorage.app",
-    'messagingSenderId': "1057223168049",
-    'appId': "1:1057223168049:web:35d9fa9303999762aac510",
-    'measurementId': "G-36J4XV7CMD"
-}
-
-firebase = pyrebase.initialize_app(firebaseConfig)
-auth = firebase.auth()
+def conectar_db():
+    return mysql.connector.connect(
+        host="127.0.0.1",
+        port=3306,
+        user="root",
+        password="gure2408",
+        database="login"
+    )
 
 
 @app.route('/login', methods=['POST'])
@@ -29,27 +27,40 @@ def login():
         email = data.get("email")
         senha = data.get("senha")
 
-        if not email:
-            return jsonify({"mensagem": "Email não fornecido", "status": "erro"}), 400
-        
-        if not senha:
-            return jsonify({"mensagem": "Senha não fornecida", "status": "erro"}), 400
+        if not email or not senha:
+            return jsonify({"mensagem": "Email e senha são obrigatórios", "status": "erro"}), 400
 
-        user = auth.sign_in_with_email_and_password(email, senha)
-        token = user["idToken"]
+        conexao = conectar_db()
+        cursor = conexao.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        usuario = cursor.fetchone()
+
+        if not usuario:
+            return jsonify({"mensagem": "Usuário não encontrado", "status": "erro"}), 404
+
+        senha_hash = usuario["senha"].encode("utf-8")
+
+        if not bcrypt.checkpw(senha.encode("utf-8"), senha_hash):
+            return jsonify({"mensagem": "Senha incorreta", "status": "erro"}), 401
+
+     
+        token = jwt.encode({
+            "email": email,
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
+        }, SECRET_KEY, algorithm="HS256")
 
         return jsonify({
             "mensagem": "Login realizado com sucesso!",
-            "data": {"token": token},
+            "token": token,
             "status": "sucesso"
         }), 200
 
     except Exception as e:
-        return jsonify({
-            "mensagem": "Email ou senha inválidos",
-            "status": "erro",
-            "detalhe": str(e)
-        }), 401
+        return jsonify({"mensagem": "Erro ao fazer login", "detalhe": str(e)}), 500
+
+    finally:
+        cursor.close()
+        conexao.close()
 
 
 @app.route('/cadastrarnovo', methods=['POST'])
@@ -60,21 +71,32 @@ def cadastrar_novo():
         senha = data.get("senha")
         repet = data.get("repet")
 
-        if not email:
-            return jsonify({"mensagem": "Email não fornecido ou incorreto", "status": "erro"}), 400
-        
-        if not senha:
-            return jsonify({"mensagem": "Senha não fornecido ou incorreta", "status": "erro"}), 400
-        
-        if not repet:
-            return jsonify({"mensagem": "Senha não fornecido ou diferente", "status": "erro"}), 400
+        if not email or not senha or not repet:
+            return jsonify({"mensagem": "Preencha todos os campos", "status": "erro"}), 400
 
-        auth.create_user_with_email_and_password(email, senha)
+        if senha != repet:
+            return jsonify({"mensagem": "As senhas não coincidem", "status": "erro"}), 400
 
-        return jsonify({"mensagem": "Usuário criado com sucesso"}), 200
+        conexao = conectar_db()
+        cursor = conexao.cursor()
+
+        cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        if cursor.fetchone():
+            return jsonify({"mensagem": "Email já cadastrado", "status": "erro"}), 409
+
+        senha_hash = bcrypt.hashpw(senha.encode("utf-8"), bcrypt.gensalt())
+
+        cursor.execute("INSERT INTO usuarios (email, senha) VALUES (%s, %s)", (email, senha_hash))
+        conexao.commit()
+
+        return jsonify({"mensagem": "Usuário criado com sucesso!", "status": "sucesso"}), 201
 
     except Exception as e:
-        return jsonify({"mensagem": "Não foi possível criar o usuário", "detalhe": str(e)}), 400
+        return jsonify({"mensagem": "Erro ao criar usuário", "detalhe": str(e)}), 500
+
+    finally:
+        cursor.close()
+        conexao.close()
 
 
 @app.route('/recuperarsenha', methods=['POST'])
@@ -86,16 +108,33 @@ def recuperar_senha():
         if not email:
             return jsonify({"mensagem": "Email não fornecido", "status": "erro"}), 400
 
-        auth.send_password_reset_email(email)
+        conexao = conectar_db()
+        cursor = conexao.cursor(dictionary=True)
+        cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        usuario = cursor.fetchone()
 
-        return jsonify({"mensagem": "Email de recuperação enviado com sucesso"}), 200
+        if not usuario:
+            return jsonify({"mensagem": "Usuário não encontrado", "status": "erro"}), 404
+
+        # Aqui você poderia gerar uma nova senha ou enviar email (exemplo simplificado)
+        nova_senha = "nova123"
+        nova_hash = bcrypt.hashpw(nova_senha.encode("utf-8"), bcrypt.gensalt())
+
+        cursor.execute("UPDATE usuarios SET senha = %s WHERE email = %s", (nova_hash, email))
+        conexao.commit()
+
+        return jsonify({
+            "mensagem": f"Senha redefinida para '{nova_senha}' (exemplo — não faça isso em produção)",
+            "status": "sucesso"
+        }), 200
 
     except Exception as e:
-        return jsonify({
-            "mensagem": "Não foi possível enviar o email",
-            "detalhe": str(e)
-        }), 400
+        return jsonify({"mensagem": "Erro ao redefinir senha", "detalhe": str(e)}), 500
 
+    finally:
+        cursor.close()
+        conexao.close()
 
+# -------------------------------
 if __name__ == '__main__':
     app.run(debug=True)

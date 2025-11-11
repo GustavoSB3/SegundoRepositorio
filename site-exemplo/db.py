@@ -1,17 +1,25 @@
 import mysql.connector
 
-conexao = mysql.connector.connect(
-    host="127.0.0.1",
-    port="3306",
-    user="root",
-    password="gure2408",
-    database="login"
+try:
+    conexao = mysql.connector.connect(
+        host="127.0.0.1",
+        port=3306,
+        user="root",
+        password="gure2408",
+        database="login"
+    )
 
-)
+    cursor = conexao.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM usuarios;")
 
-cursor = conexao.cursor()
-cursor.execute("SELECT * FROM usuarios;")
-for linha in cursor.fetchall():
-    print(linha)
+    for linha in cursor.fetchall():
+        print(linha)
 
-conexao.close()
+except mysql.connector.Error as err:
+    print(f"Erro ao conectar ou consultar o banco: {err}")
+
+finally:
+    if conexao.is_connected():
+        cursor.close()
+        conexao.close()
+        print("Conexão encerrada.")
