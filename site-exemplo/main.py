@@ -65,6 +65,8 @@ def login():
 
 @app.route('/cadastrarnovo', methods=['POST'])
 def cadastrar_novo():
+    conexao = None  # Inicializa como None
+    cursor = None   # Inicializa como None
     try:
         data = request.get_json()
         email = data.get("email")
@@ -77,8 +79,8 @@ def cadastrar_novo():
         if senha != repet:
             return jsonify({"mensagem": "As senhas não coincidem", "status": "erro"}), 400
 
-        conexao = conectar_db()
-        cursor = conexao.cursor()
+        conexao = conectar_db() # Agora 'conexao' é definida
+        cursor = conexao.cursor() # Agora 'cursor' é definido
 
         cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
         if cursor.fetchone():
@@ -91,12 +93,19 @@ def cadastrar_novo():
 
         return jsonify({"mensagem": "Usuário criado com sucesso!", "status": "sucesso"}), 201
 
+    except mysql.connector.Error as err:
+        # É uma boa prática capturar erros de DB separadamente
+        return jsonify({"mensagem": "Erro de banco de dados", "detalhe": str(err)}), 500
     except Exception as e:
-        return jsonify({"mensagem": "Erro ao criar usuário", "detalhe": str(e)}), 500
+        # Captura todos os outros erros (como request.get_json() falhando)
+        return jsonify({"mensagem": "Erro interno ao criar usuário", "detalhe": str(e)}), 500
 
     finally:
-        cursor.close()
-        conexao.close()
+        # VERIFICAÇÃO DE SEGURANÇA:
+        if cursor:
+            cursor.close()
+        if conexao and conexao.is_connected():
+            conexao.close()
 
 
 @app.route('/recuperarsenha', methods=['POST'])
