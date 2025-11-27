@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import mysql.connector
 import bcrypt
-import jwt
+import jwt as pyjwt
 import datetime
 
 app = Flask(__name__)
@@ -44,7 +44,7 @@ def login():
             return jsonify({"mensagem": "Senha incorreta", "status": "erro"}), 401
 
      
-        token = jwt.encode({
+        token = pyjwt.encode({
             "email": email,
             "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=2)
         }, SECRET_KEY, algorithm="HS256")

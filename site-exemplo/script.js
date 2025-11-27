@@ -24,6 +24,13 @@ $form.addEventListener('submit', event=>{
             senha: senha
         })
     }).then(response=> response.json())
+    .then(data => {
+        if(data.status === "sucesso") {
+            alert("login realizado com sucesso");
+        } else {
+            alert("Senha ou usuário incorreto")
+        }
+    })
 
 
     console.log(email, senha)
