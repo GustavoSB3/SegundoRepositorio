@@ -29,16 +29,26 @@ fetch("http://127.0.0.1:5000/cadastrarnovo", {
 
   if (senha.length < 8)
   {
-    alert("A senha deve conter no minímo 8 digitos!")
+
     document.querySelector('#senha').focus();
-    return false;
+    return;
   }
-  else if(!regex.exec(senha))
+  
   {
-    alert("A senha deve conter no mínimo 1 caracter maiúsculo, 2 números e 1 caracter especial!")
-    document.querySelector(senha).focus();
-    return false
-  }
+    if(!regex.exec(senha)){
+      const ErrorPassword = document.getElementById('ErrorPassword');
+
+
+   e.preventDefault()
+   ErrorPassword.sytle.display = "block";
+   ErrorPassword.textContent =    
+   "A senha deve conter no mínimo 1 caracter maiúsculo, 2 números e 1 caracter especial!"
+    document.querySelector('#senha').focus();
+
+  return false;
+  
+    }
+}
 
   return true;
 
@@ -47,6 +57,7 @@ fetch("http://127.0.0.1:5000/cadastrarnovo", {
 })
 .catch(error => {
   console.error("Erro ao cadastrar:", error)
+  
 });
 
  
